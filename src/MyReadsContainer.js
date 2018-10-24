@@ -11,6 +11,11 @@ class MyReadsContainer extends Component {
    */
   state = {
     books: [],
+    shelves: [
+      { name: "Currently Reading", id: 1 },
+      { name: "Want to Read", id: 2 },
+      { name: "Read", id: 3 }
+    ],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -43,14 +48,17 @@ class MyReadsContainer extends Component {
 
   render() {
     //destructure the books object
-    const { books } = this.state;
+    const { books, shelves } = this.state;
     return (
       <div className="my-reads-container">
         {this.state.showSearchPage ? (
           <SearchOverlay toggleSearch={this.handleShowSearch} />
         ) : (
           <React.Fragment>
-            <ListShelf books={books} />
+            {shelves.map(shelf => (
+              <ListShelf books={books} shelf={shelf} key={shelf.id} />
+            ))}
+
             <SearchButton toggleSearch={this.handleShowSearch} />
           </React.Fragment>
         )}
