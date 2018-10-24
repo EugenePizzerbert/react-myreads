@@ -10,6 +10,7 @@ class MyReadsContainer extends Component {
    * @type {{showSearchPage: boolean}}
    */
   state = {
+    books: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -18,6 +19,16 @@ class MyReadsContainer extends Component {
      */
     showSearchPage: false
   };
+
+  //Get all the books
+  componentDidMount() {
+    //call the api to get all the books
+    BooksAPI.getAll().then(books => {
+      this.setState(() => ({
+        books
+      }));
+    });
+  }
 
   handleShowSearch = () => {
     const doSearch = this.state.showSearchPage;
@@ -31,13 +42,15 @@ class MyReadsContainer extends Component {
   };
 
   render() {
+    //destructure the books object
+    const { books } = this.state;
     return (
       <div className="my-reads-container">
         {this.state.showSearchPage ? (
           <SearchOverlay toggleSearch={this.handleShowSearch} />
         ) : (
           <React.Fragment>
-            <ListShelf />
+            <ListShelf books={books} />
             <SearchButton toggleSearch={this.handleShowSearch} />
           </React.Fragment>
         )}
