@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class ListCategory extends Component {
+class ListShelf extends Component {
   render() {
     return (
       <div className="list-books">
@@ -191,4 +191,4 @@ class ListCategory extends Component {
   }
 }
 
-export default ListCategory;
+export default ListShelf;
