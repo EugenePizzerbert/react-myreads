@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-
 import * as BooksAPI from "./api/BooksAPI";
 import ListShelf from "./modules/ListShelf";
 import SearchOverlay from "./modules/SearchOverlay";
 import SearchButton from "./components/SearchButton";
+import { Route } from "react-router-dom";
 
 class MyReadsContainer extends Component {
   /**
@@ -350,14 +349,7 @@ class MyReadsContainer extends Component {
       { name: "Currently Reading", id: "currentlyReading" },
       { name: "Want to Read", id: "wantToRead" },
       { name: "Read", id: "read" }
-    ],
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
+    ]
   };
 
   //Get all the books
@@ -387,22 +379,24 @@ class MyReadsContainer extends Component {
 
     return (
       <div className="my-reads-container">
-        {this.state.showSearchPage ? (
-          <SearchOverlay toggleSearch={this.handleShowSearch} />
-        ) : (
-          <React.Fragment>
-            <ListShelf books={books} shelves={shelves} />
-            <SearchButton toggleSearch={this.handleShowSearch} />
-          </React.Fragment>
-        )}
+        <Route
+          path="/search"
+          render={() => <SearchOverlay toggleSearch={this.handleShowSearch} />}
+        />
+
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <React.Fragment>
+              <ListShelf books={books} shelves={shelves} />
+              <SearchButton />
+            </React.Fragment>
+          )}
+        />
       </div>
     );
   }
 }
-
-MyReadsContainer.propTypes = {
-  books: PropTypes.array.isRequired,
-  shelves: PropTypes.array.isRequired
-};
 
 export default MyReadsContainer;
