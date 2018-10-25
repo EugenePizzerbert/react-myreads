@@ -24,7 +24,11 @@ class ListShelf extends Component {
         {shelves.map(shelf => (
           <div className="list-books" key={shelf.id}>
             <div className="list-books-content">
-              <Shelf shelf={shelf} books={this.getBooksByShelf(shelf.id)} />
+              <Shelf
+                shelf={shelf}
+                shelves={shelves}
+                books={this.getBooksByShelf(shelf.id)}
+              />
             </div>
           </div>
         ))}
