@@ -25,13 +25,19 @@ class MyReadsContainer extends Component {
    * @returns {array} All books objects from BooksAPI
    */
   componentDidMount() {
-    //call the api to get all the books
+    this.getAllBooks();
+  }
+
+  /**
+   * Get all books from api
+   */
+  getAllBooks = () => {
     BooksAPI.getAll().then(books => {
       this.setState(() => ({
         books
       }));
     });
-  }
+  };
 
   render() {
     //destructure the books object
