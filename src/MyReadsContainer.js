@@ -39,10 +39,7 @@ class MyReadsContainer extends Component {
 
     return (
       <div className="my-reads-container">
-        <Route
-          path="/search"
-          render={() => <SearchOverlay toggleSearch={this.handleShowSearch} />}
-        />
+        <Route path="/search" render={() => <SearchOverlay books={books} />} />
         <Route
           exact
           path="/"
