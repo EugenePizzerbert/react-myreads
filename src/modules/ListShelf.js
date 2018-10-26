@@ -3,17 +3,8 @@ import PropTypes from "prop-types";
 import Shelf from "../components/Shelf";
 
 class ListShelf extends Component {
-  /**
-   * Handles getting the books by shelf id
-   * @param shelfId
-   * @return {*}
-   */
-  handleGetBooksByShelf = shelfId => {
-    return this.props.getBooksByShelf(shelfId);
-  };
-
   render() {
-    const { shelves } = this.props;
+    const { shelves, onUpdateBookShelf, getBooksByShelf } = this.props;
 
     return (
       <React.Fragment>
@@ -23,7 +14,8 @@ class ListShelf extends Component {
               <Shelf
                 shelf={shelf}
                 shelves={shelves}
-                books={this.handleGetBooksByShelf(shelf.id)}
+                books={getBooksByShelf(shelf.id)}
+                onUpdateBookShelf={onUpdateBookShelf}
               />
             </div>
           </div>
@@ -33,9 +25,14 @@ class ListShelf extends Component {
   }
 }
 
+/**
+ * Prop Types Declaration
+ * @type {{shelves: (*|shim), getBooksByShelf: (*|shim), onUpdateBookShelf: (*|shim)}}
+ */
 ListShelf.propTypes = {
-  books: PropTypes.array.isRequired,
-  shelves: PropTypes.array.isRequired
+  shelves: PropTypes.array.isRequired,
+  getBooksByShelf: PropTypes.func.isRequired,
+  onUpdateBookShelf: PropTypes.func.isRequired
 };
 
 export default ListShelf;
