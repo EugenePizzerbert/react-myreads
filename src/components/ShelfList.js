@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Shelf from "../components/Shelf";
+import Shelf from "./Shelf";
 
-class ListShelf extends Component {
+class ShelfList extends Component {
   render() {
     const { shelves, onUpdateBookShelf, getBooksByShelf } = this.props;
 
@@ -29,10 +29,10 @@ class ListShelf extends Component {
  * Prop Types Declaration
  * @type {{shelves: (*|shim), getBooksByShelf: (*|shim), onUpdateBookShelf: (*|shim)}}
  */
-ListShelf.propTypes = {
+ShelfList.propTypes = {
   shelves: PropTypes.array.isRequired,
   getBooksByShelf: PropTypes.func.isRequired,
   onUpdateBookShelf: PropTypes.func.isRequired
 };
 
-export default ListShelf;
+export default ShelfList;

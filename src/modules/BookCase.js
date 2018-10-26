@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { update, getAll } from "./api/BooksAPI";
-import ListShelf from "./modules/ListShelf";
-import SearchOverlay from "./modules/SearchOverlay";
-import SearchButton from "./components/SearchButton";
-import { Route } from "react-router-dom";
+import { update, getAll } from "../api/BooksAPI";
+import ShelfList from "../components/ShelfList";
+import SearchButton from "../components/SearchButton";
 
-class MyReadsContainer extends Component {
+class BookCase extends Component {
   /**
    * State property
    * @type {{books: array}}
@@ -99,26 +97,17 @@ class MyReadsContainer extends Component {
     const { books, shelves } = this.state;
 
     return (
-      <div className="my-reads-container">
-        <Route path="/search" render={() => <SearchOverlay books={books} />} />
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <React.Fragment>
-              <ListShelf
-                books={books}
-                shelves={shelves}
-                getBooksByShelf={this.getBooksByShelf}
-                onUpdateBookShelf={this.updateBook}
-              />
-              <SearchButton />
-            </React.Fragment>
-          )}
+      <div className="list-shelf-container">
+        <ShelfList
+          books={books}
+          shelves={shelves}
+          getBooksByShelf={this.getBooksByShelf}
+          onUpdateBookShelf={this.updateBook}
         />
+        <SearchButton />
       </div>
     );
   }
 }
 
-export default MyReadsContainer;
+export default BookCase;
