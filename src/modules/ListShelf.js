@@ -4,16 +4,12 @@ import Shelf from "../components/Shelf";
 
 class ListShelf extends Component {
   /**
-   * Query to get books by shelf
-   * @param query
-   * @returns {*}
+   * Handles getting the books by shelf id
+   * @param shelfId
+   * @return {*}
    */
-  getBooksByShelf = query => {
-    //first we destructure the books prop from the parent component state
-    const { books } = this.props;
-
-    //next we filter the results based on the query param passed to the function & return the queried results
-    return books.filter(b => b.shelf === query);
+  handleGetBooksByShelf = shelfId => {
+    return this.props.getBooksByShelf(shelfId);
   };
 
   render() {
@@ -27,7 +23,7 @@ class ListShelf extends Component {
               <Shelf
                 shelf={shelf}
                 shelves={shelves}
-                books={this.getBooksByShelf(shelf.id)}
+                books={this.handleGetBooksByShelf(shelf.id)}
               />
             </div>
           </div>

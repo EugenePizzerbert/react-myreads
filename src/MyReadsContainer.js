@@ -39,6 +39,19 @@ class MyReadsContainer extends Component {
     });
   };
 
+  /**
+   * Query to get books by shelf
+   * @param query
+   * @returns {*}
+   */
+  getBooksByShelf = query => {
+    //first we destructure the books from the component state
+    const { books } = this.state;
+
+    //next we filter the results based on the query param passed to the function & return the queried results
+    return books.filter(book => book.shelf === query);
+  };
+
   render() {
     //destructure the books object
     const { books, shelves } = this.state;
@@ -51,7 +64,11 @@ class MyReadsContainer extends Component {
           path="/"
           render={() => (
             <React.Fragment>
-              <ListShelf books={books} shelves={shelves} />
+              <ListShelf
+                books={books}
+                shelves={shelves}
+                getBooksByShelf={this.getBooksByShelf}
+              />
               <SearchButton />
             </React.Fragment>
           )}
