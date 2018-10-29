@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { update, getAll } from "../api/BooksAPI";
 import ShelfList from "../components/ShelfList";
 import SearchButton from "../components/SearchButton";
-import SearchOverlay from "./SearchOverlay";
+import Search from "./Search";
 import { Route } from "react-router-dom";
 
 class BookCase extends Component {
@@ -105,7 +105,7 @@ class BookCase extends Component {
           path="/search"
           render={() => (
             <div className="search-overlay-container">
-              <SearchOverlay
+              <Search
                 books={books}
                 shelves={shelves}
                 onUpdateBookShelf={this.updateBook}
