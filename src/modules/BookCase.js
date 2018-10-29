@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { update, getAll } from "../api/BooksAPI";
 import ShelfList from "../components/ShelfList";
 import SearchButton from "../components/SearchButton";
+import SearchOverlay from "./SearchOverlay";
+import { Route } from "react-router-dom";
 
 class BookCase extends Component {
   /**
@@ -97,15 +99,36 @@ class BookCase extends Component {
     const { books, shelves } = this.state;
 
     return (
-      <div className="list-shelf-container">
-        <ShelfList
-          books={books}
-          shelves={shelves}
-          getBooksByShelf={this.getBooksByShelf}
-          onUpdateBookShelf={this.updateBook}
+      <main className="container my-reads-container">
+        <Route
+          exact
+          path="/search"
+          render={() => (
+            <div className="search-overlay-container">
+              <SearchOverlay
+                books={books}
+                shelves={shelves}
+                onUpdateBookShelf={this.updateBook}
+              />
+            </div>
+          )}
         />
-        <SearchButton />
-      </div>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <div className="list-shelf-container">
+              <ShelfList
+                books={books}
+                shelves={shelves}
+                getBooksByShelf={this.getBooksByShelf}
+                onUpdateBookShelf={this.updateBook}
+              />
+              <SearchButton />
+            </div>
+          )}
+        />
+      </main>
     );
   }
 }
