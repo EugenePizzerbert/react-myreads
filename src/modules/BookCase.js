@@ -33,9 +33,9 @@ class BookCase extends Component {
    */
   getAllBooks = () => {
     getAll().then(books => {
-      this.setState(() => ({
+      this.setState({
         books
-      }));
+      });
     });
   };
 
@@ -72,7 +72,7 @@ class BookCase extends Component {
    */
   updateBookShelf = (book, shelfId) => {
     //first we update the book via the api
-    update(book, shelfId).then(data => {
+    update(book, shelfId).then(book => {
       // then we set the shelf for the updated book
       book.shelf = shelfId;
       // then we update state with the updated book
