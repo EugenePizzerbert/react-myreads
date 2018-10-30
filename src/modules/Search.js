@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import SearchResults from "../components/Search/SearchResults";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import SearchResults from "../components/Search/SearchResults";
 import { search } from "../api/BooksAPI";
 import SearchError from "../components/Search/Error";
 
@@ -285,5 +286,11 @@ const searchTerms = [
   "Web Development",
   "iOS"
 ];
+
+Search.propTypes = {
+  books: PropTypes.array.isRequired,
+  shelves: PropTypes.array.isRequired,
+  onUpdateBookShelf: PropTypes.func.isRequired
+};
 
 export default Search;
