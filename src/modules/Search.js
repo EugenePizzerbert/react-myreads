@@ -93,9 +93,10 @@ class Search extends Component {
       if (hasError) {
         return this.setSearchError(true, results.error);
       }
-    } else if (hasNoResults) {
-      return this.setSearchError(false, null);
     }
+
+    //make sure error state is set to false
+    return this.setSearchError(false, null);
   };
 
   /**
