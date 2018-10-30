@@ -52,6 +52,13 @@ class BookCase extends Component {
     return books.filter(book => book.shelf === query);
   };
 
+  getBooksByShelfCount = shelfId => {
+    const { shelves } = this.state;
+    let shelf = shelves.find(shelf => shelf.id === shelfId);
+    let count = this.getBooksByShelf(shelf.id).length;
+    return count;
+  };
+
   /**
    * Update book object
    * @description variadic function
@@ -122,6 +129,7 @@ class BookCase extends Component {
                 books={books}
                 shelves={shelves}
                 getBooksByShelf={this.getBooksByShelf}
+                getBooksByShelfCount={this.getBooksByShelfCount}
                 onUpdateBookShelf={this.updateBook}
               />
               <SearchButton />

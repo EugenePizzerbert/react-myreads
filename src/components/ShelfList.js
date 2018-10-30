@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import Shelf from "./Shelf";
 
 const ShelfList = props => {
-  const { shelves, onUpdateBookShelf, getBooksByShelf } = props;
+  const {
+    shelves,
+    onUpdateBookShelf,
+    getBooksByShelf,
+    getBooksByShelfCount
+  } = props;
 
   return (
     <React.Fragment>
@@ -15,6 +20,7 @@ const ShelfList = props => {
               shelves={shelves}
               books={getBooksByShelf(shelf.id)}
               onUpdateBookShelf={onUpdateBookShelf}
+              getBooksByShelfCount={getBooksByShelfCount}
             />
           </div>
         </div>
