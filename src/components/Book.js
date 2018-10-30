@@ -30,6 +30,8 @@ class Book extends Component {
 
   render() {
     const { book, shelves } = this.props;
+    const authors = book.authors ? book.authors.join(", ") : "Unknown";
+
     return (
       <li>
         <div className="book">
@@ -51,7 +53,7 @@ class Book extends Component {
             />
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors}</div>
+          <div className="book-authors">{authors}</div>
         </div>
       </li>
     );
