@@ -1,29 +1,27 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Shelf from "./Shelf";
 
-class ShelfList extends Component {
-  render() {
-    const { shelves, onUpdateBookShelf, getBooksByShelf } = this.props;
+const ShelfList = props => {
+  const { shelves, onUpdateBookShelf, getBooksByShelf } = props;
 
-    return (
-      <React.Fragment>
-        {shelves.map(shelf => (
-          <div className="list-books" key={shelf.id}>
-            <div className="list-books-content">
-              <Shelf
-                shelf={shelf}
-                shelves={shelves}
-                books={getBooksByShelf(shelf.id)}
-                onUpdateBookShelf={onUpdateBookShelf}
-              />
-            </div>
+  return (
+    <React.Fragment>
+      {shelves.map(shelf => (
+        <div className="list-books" key={shelf.id}>
+          <div className="list-books-content">
+            <Shelf
+              shelf={shelf}
+              shelves={shelves}
+              books={getBooksByShelf(shelf.id)}
+              onUpdateBookShelf={onUpdateBookShelf}
+            />
           </div>
-        ))}
-      </React.Fragment>
-    );
-  }
-}
+        </div>
+      ))}
+    </React.Fragment>
+  );
+};
 
 /**
  * Prop Types Declaration
