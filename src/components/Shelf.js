@@ -18,7 +18,7 @@ const Shelf = props => {
         {shelf.name}
         <span className="badge badge-pill badge-primary ml-2">
           {getBooksByShelfCount(shelf.id)}
-        </span>{" "}
+        </span>
       </h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
