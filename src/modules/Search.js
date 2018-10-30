@@ -17,17 +17,26 @@ class Search extends Component {
    * @param query
    */
   setSearchResults = query => {
-    search(query).then(results => {
-      //if results are returned then set the component results state to the new results, otherwise set the results to an empty array
-      if (results) {
-        this.setState({ results });
-      } else {
-        this.setState({ results: [] });
-      }
+    //if query exists, then run the search, otherwise set the results state to an empty array. This prevents unnecessary api calls when the input field is empty.
+    if (query) {
+      search(query).then(response => {
+        //if response has an error set the results to an empty array, otherwise set the component results state to the new results
+        if (this.hasSearchError(response)) {
+          this.setState({ results: [] });
+        } else {
+          //merge the returned data with the existing books state to make sure the results have the updated shelf data
+          const results = this.handleMergeResults(response);
 
-      //Handle any search errors
-      this.handleSearchError(results);
-    });
+          //now we can set the results state
+          this.setState({ results });
+        }
+
+        //Handle any search errors
+        return this.handleSearchError(response);
+      });
+    } else {
+      this.setState({ results: [] });
+    }
   };
 
   /**
@@ -69,11 +78,11 @@ class Search extends Component {
   };
 
   /**
-   * Check if current state has an error
+   * Check if search results have an error
    * @return {boolean}
    */
-  hasSearchError = () => {
-    return this.state.showError;
+  hasSearchError = results => {
+    return !!results.error;
   };
 
   /**
@@ -81,22 +90,44 @@ class Search extends Component {
    * @param results
    */
   handleSearchError = results => {
-    //first we need to check if the results array is undefined. This happens when there's no input query and an explicit error isn't returned
-    let hasNoResults = results === undefined;
-
-    //now we do a check if there's any results at all, this prevents any non-object errors
+    //check if there's any results at all, this prevents any non-object errors
     if (results) {
       //here we check if there's results with an error returned
-      let hasError = results.error !== undefined;
-
-      //if so, then let's set the state to show the error & error message otherwise, if the results are undefined then make sure the showError state is set to false;
-      if (hasError) {
+      if (this.hasSearchError(results)) {
+        //if so, then let's set the state to show the error & error message
         return this.setSearchError(true, results.error);
       }
     }
 
-    //make sure error state is set to false
+    //if the results are returned properly or undefined due to an empty query in the input then make sure the showError state is set to false to avoid false error notifications
     return this.setSearchError(false, null);
+  };
+
+  /**
+   * Handles merging search results with the parent books state
+   * @param results
+   * @return {*}
+   */
+  handleMergeResults = results => {
+    let data = null;
+    if (results) {
+      //first we loop through the results
+      data = results.map(result => {
+        //and check for any existing books from the parent books state that that match our search results. Optimized with find() so we don't have to loop through the entire books array.
+        const existingBook = this.props.books.find(
+          book => book.id === result.id
+        );
+        //if the book exists in the parent component state, than update the shelf, otherwise set the shelf to "none"
+        if (existingBook) {
+          result.shelf = existingBook.shelf;
+        } else {
+          result.shelf = "none";
+        }
+        //now we can return the updated book back to the results array
+        return result;
+      });
+    }
+    return data;
   };
 
   /**
@@ -113,7 +144,7 @@ class Search extends Component {
   };
 
   render() {
-    const { query, results, errorMessage } = this.state;
+    const { query, results, errorMessage, showError } = this.state;
     const { shelves, onUpdateBookShelf } = this.props;
 
     //conditionally render SearchResults component
@@ -130,7 +161,7 @@ class Search extends Component {
 
     //conditionally render Error Component
     let searchError = null;
-    if (this.hasSearchError()) {
+    if (showError) {
       searchError = (
         <SearchError searchTerms={searchTerms} errorMessage={errorMessage} />
       );
