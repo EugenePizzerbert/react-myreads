@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SearchResults from "../components/SearchResults";
+import SearchResults from "../components/Search/SearchResults";
 import { Link } from "react-router-dom";
 import { search } from "../api/BooksAPI";
 import SearchError from "../components/Search/Error";

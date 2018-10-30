@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { update, getAll } from "../api/BooksAPI";
 import ShelfList from "../components/ShelfList";
-import SearchButton from "../components/SearchButton";
+import SearchButton from "../components/Search/SearchButton";
 import Search from "./Search";
 import { Route } from "react-router-dom";
 
