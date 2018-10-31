@@ -4,6 +4,8 @@ import ShelfList from "../components/ShelfList";
 import SearchButton from "../components/Search/SearchButton";
 import Search from "./Search";
 import { Route } from "react-router-dom";
+import { DragDropContext } from "react-beautiful-dnd";
+import { reorder } from "../api/Helpers";
 
 class BookCase extends Component {
   /**
@@ -52,6 +54,11 @@ class BookCase extends Component {
     return books.filter(book => book.shelf === query);
   };
 
+  /**
+   * Get books count by shelf
+   * @param shelfId
+   * @return {*}
+   */
   getBooksByShelfCount = shelfId => {
     const { shelves } = this.state;
     let shelf = shelves.find(shelf => shelf.id === shelfId);
@@ -101,42 +108,64 @@ class BookCase extends Component {
     }));
   };
 
+  onDragEnd = result => {
+    // const {books} = this.state;
+    const { draggableId } = result;
+    const { droppableId } = result.destination;
+
+    const books = reorder(
+      this.state.books,
+      result.source.index,
+      result.destination.index
+    );
+    //get the book object
+    const book = books.find(b => b.id === draggableId);
+    //update the book
+    // this.updateBook(book, droppableId);
+    // this.setState({
+    //   books
+    // });
+    this.updateBook(book, droppableId);
+  };
+
   render() {
     //destructure the books object
     const { books, shelves } = this.state;
 
     return (
-      <main className="container my-reads-container">
-        <Route
-          exact
-          path="/search"
-          render={() => (
-            <div className="search-overlay-container">
-              <Search
-                books={books}
-                shelves={shelves}
-                onUpdateBookShelf={this.updateBook}
-              />
-            </div>
-          )}
-        />
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <div className="list-shelf-container">
-              <ShelfList
-                books={books}
-                shelves={shelves}
-                getBooksByShelf={this.getBooksByShelf}
-                getBooksByShelfCount={this.getBooksByShelfCount}
-                onUpdateBookShelf={this.updateBook}
-              />
-              <SearchButton />
-            </div>
-          )}
-        />
-      </main>
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <main className="container my-reads-container">
+          <Route
+            exact
+            path="/search"
+            render={() => (
+              <div className="search-overlay-container">
+                <Search
+                  books={books}
+                  shelves={shelves}
+                  onUpdateBookShelf={this.updateBook}
+                />
+              </div>
+            )}
+          />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <div className="list-shelf-container">
+                <ShelfList
+                  books={books}
+                  shelves={shelves}
+                  getBooksByShelf={this.getBooksByShelf}
+                  getBooksByShelfCount={this.getBooksByShelfCount}
+                  onUpdateBookShelf={this.updateBook}
+                />
+                <SearchButton />
+              </div>
+            )}
+          />
+        </main>
+      </DragDropContext>
     );
   }
 }

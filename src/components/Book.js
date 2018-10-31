@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SelectShelf from "./SelectShelf";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
+import { Draggable } from "react-beautiful-dnd";
 
 class Book extends Component {
   /**
@@ -29,33 +30,42 @@ class Book extends Component {
   };
 
   render() {
-    const { book, shelves } = this.props;
+    const { book, bookIndex, shelves } = this.props;
     const authors = book.authors ? book.authors.join(", ") : "Unknown";
 
     return (
-      <li>
-        <div className="book">
-          <div className="book-top">
-            <div
-              className="book-cover"
-              style={{
-                width: 128,
-                height: 193,
-                backgroundImage: `url(${
-                  book.imageLinks ? book.imageLinks.thumbnail : ""
-                })`
-              }}
-            />
-            <SelectShelf
-              book={book}
-              shelves={shelves}
-              onUpdateBookShelf={this.handleUpdateBookShelf}
-            />
-          </div>
-          <div className="book-title">{book.title}</div>
-          <div className="book-authors">{authors}</div>
-        </div>
-      </li>
+      <Draggable draggableId={book.id} index={bookIndex}>
+        {(provided, snapshot) => (
+          <li
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            <div className="book">
+              <div className="book-top">
+                <div
+                  className="book-cover"
+                  style={{
+                    width: 128,
+                    height: 193,
+                    backgroundImage: `url(${
+                      book.imageLinks ? book.imageLinks.thumbnail : ""
+                    })`
+                  }}
+                />
+                <SelectShelf
+                  book={book}
+                  shelves={shelves}
+                  onUpdateBookShelf={this.handleUpdateBookShelf}
+                />
+              </div>
+              <div className="book-title">{book.title}</div>
+              <div className="book-authors">{authors}</div>
+            </div>
+          </li>
+        )}
+      </Draggable>
+      
     );
   }
 }

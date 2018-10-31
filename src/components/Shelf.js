@@ -2,6 +2,7 @@ import React from "react";
 import Book from "./Book";
 import PropTypes from "prop-types";
 import SelectShelf from "./SelectShelf";
+import { Droppable } from "react-beautiful-dnd";
 
 const Shelf = props => {
   const {
@@ -13,26 +14,39 @@ const Shelf = props => {
   } = props;
 
   return (
-    <div className="bookshelf">
-      <h2 className="bookshelf-title">
-        {shelf.name}
-        <span className="badge badge-pill badge-primary ml-2">
-          {getBooksByShelfCount(shelf.id)}
-        </span>
-      </h2>
-      <div className="bookshelf-books">
-        <ol className="books-grid">
-          {books.map(book => (
-            <Book
-              book={book}
-              shelves={shelves}
-              key={book.id}
-              onUpdateBookShelf={onUpdateBookShelf}
-            />
-          ))}
-        </ol>
-      </div>
-    </div>
+    <Droppable droppableId={shelf.id} direction="horizontal">
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          style={{
+            backgroundColor: snapshot.isDraggingOver ? "blue" : "grey"
+          }}
+          {...provided.droppableProps}
+          className="bookshelf"
+        >
+          <h2 className="bookshelf-title">
+            {shelf.name}
+            <span className="badge badge-pill badge-primary ml-2">
+              {getBooksByShelfCount(shelf.id)}
+            </span>
+          </h2>
+          <div className="bookshelf-books">
+            <ol className="books-grid">
+              {books.map((book, index) => (
+                <Book
+                  book={book}
+                  bookIndex={index}
+                  shelves={shelves}
+                  key={book.id}
+                  onUpdateBookShelf={onUpdateBookShelf}
+                />
+              ))}
+            </ol>
+          </div>
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
   );
 };
 
