@@ -124,7 +124,7 @@ class BookCase extends Component {
           exact
           path="/"
           render={() => (
-            <div className="list-shelf-container">
+            <div className="list-shelf-container my-3">
               <ShelfList
                 books={books}
                 shelves={shelves}

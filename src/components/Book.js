@@ -21,11 +21,18 @@ class Book extends Component {
    */
   setUpdateNotification = shelfId => {
     const updatedShelf = this.props.shelves.find(s => s.id === shelfId);
-    toast.success(`Book moved to ${updatedShelf.name}`, {
-      className: "alert alert-success",
-      progressClassName: "bg-success",
-      autoClose: 15000
-    });
+    toast.success(
+      () => (
+        <span>
+          Book moved to <span className="alert-link">{updatedShelf.name}</span>
+        </span>
+      ),
+      {
+        className: "alert alert-success",
+        progressClassName: "bg-success",
+        autoClose: 3000
+      }
+    );
   };
 
   render() {

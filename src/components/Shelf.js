@@ -14,12 +14,12 @@ const Shelf = props => {
 
   return (
     <div className="bookshelf">
-      <h2 className="bookshelf-title">
-        {shelf.name}
-        <span className="badge badge-pill badge-primary ml-2">
+      <div className="bookshelf-title-container d-flex align-items-start">
+        <h2 className="bookshelf-title">{shelf.name}</h2>
+        <span className="badge badge-pill badge-success ml-2">
           {getBooksByShelfCount(shelf.id)}
         </span>
-      </h2>
+      </div>
       <div className="bookshelf-books">
         <ol className="books-grid">
           {books.map(book => (
