@@ -1,4 +1,4 @@
-#Todo
+# Todo
 - [x] Complete basic [rubric requirements](https://review.udacity.com/#!/rubrics/918/view)
 - [x] Add book shelf counter
 - [x] Add FontAwesome support
