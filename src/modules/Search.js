@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SearchResults from "../components/Search/SearchResults";
 import { search } from "../api/BooksAPI";
 import SearchError from "../components/Search/Error";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Search extends Component {
   state = {
@@ -177,9 +178,11 @@ class Search extends Component {
                 <div className="input-group-prepend close-search">
                   <Link
                     to="/"
-                    className="btn btn-outline-primary px-4"
+                    className="btn btn-outline-success px-4"
                     aria-label="Close"
-                  />
+                  >
+                    <FontAwesomeIcon icon="arrow-left" />
+                  </Link>
                 </div>
                 <input
                   className="form-control"
