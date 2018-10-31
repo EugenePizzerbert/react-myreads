@@ -11,21 +11,25 @@ const ShelfList = props => {
   } = props;
 
   return (
-    <React.Fragment>
-      {shelves.map(shelf => (
-        <div className="list-books" key={shelf.id}>
-          <div className="list-books-content">
-            <Shelf
-              shelf={shelf}
-              shelves={shelves}
-              books={getBooksByShelf(shelf.id)}
-              onUpdateBookShelf={onUpdateBookShelf}
-              getBooksByShelfCount={getBooksByShelfCount}
-            />
+    <div className="row">
+      <div className="col-12">
+        {shelves.map(shelf => (
+          <div className="row list-books" key={shelf.id}>
+            <div className="col-12">
+              <div className="list-books-content">
+                <Shelf
+                  shelf={shelf}
+                  shelves={shelves}
+                  books={getBooksByShelf(shelf.id)}
+                  onUpdateBookShelf={onUpdateBookShelf}
+                  getBooksByShelfCount={getBooksByShelfCount}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
-    </React.Fragment>
+        ))}
+      </div>
+    </div>
   );
 };
 
