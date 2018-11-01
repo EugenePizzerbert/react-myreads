@@ -5,8 +5,14 @@ import SearchResults from "../components/Search/SearchResults";
 import { search } from "../api/BooksAPI";
 import SearchError from "../components/Search/Error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { debounce } from "throttle-debounce";
 
 class Search extends Component {
+  constructor() {
+    super();
+    this.setSearchResults = debounce(500, this.setSearchResults);
+  }
+
   state = {
     query: "",
     results: [],
