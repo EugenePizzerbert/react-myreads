@@ -5,7 +5,7 @@ import SearchButton from "../components/Search/SearchButton";
 import Search from "./Search";
 import { Route } from "react-router-dom";
 import { DragDropContext } from "react-beautiful-dnd";
-import { reorder } from "../api/Helpers";
+import { dndHelpers } from "../api/Helpers";
 
 class BookCase extends Component {
   /**
@@ -35,9 +35,12 @@ class BookCase extends Component {
    */
   getAllBooks = () => {
     getAll().then(books => {
-      this.setState({
-        books
-      });
+      this.setState(
+        {
+          books
+        },
+        console.log("getAllBooks state: ", books, this.state.books)
+      );
     });
   };
 
@@ -51,7 +54,7 @@ class BookCase extends Component {
     const { books } = this.state;
 
     //next we filter the results based on the query param passed to the function & return the queried results
-    return books.filter(book => book.shelf === query);
+    return this.state.books.filter(book => book.shelf === query);
   };
 
   /**
@@ -74,9 +77,13 @@ class BookCase extends Component {
   updateBook = (...params) => {
     //destructure the rest params
     let [book, shelfId] = params;
+    console.log("updateBook state: ", this.state.books);
 
     //update book shelf
     this.updateBookShelf(book, shelfId);
+
+    //update book state
+    this.updateBookState(book, shelfId);
   };
 
   /**
@@ -85,55 +92,56 @@ class BookCase extends Component {
    * @param shelfId
    */
   updateBookShelf = (book, shelfId) => {
+    console.log("Before update: ", this.state.books);
+    console.log("updateBookShelf before Update: ", book);
     //first we update the book via the api
     update(book, shelfId).then(() => {
-      // then we set the shelf for the updated book
-      book.shelf = shelfId;
-      // then we update state with the updated book
-      this.updateBookState(book);
+      console.log("Book Updated Successfully : ", book, this.state.books);
     });
   };
 
   /**
    * Updates book state
    * @param book
+   * @param shelf
    */
-  updateBookState = book => {
-    this.setState(prevState => ({
-      books: prevState.books
-        // now we remove the old data from the updated book from the array
-        .filter(b => b.id !== book.id)
-        // and append the updated book to the books array
-        .concat(book)
-    }));
+  updateBookState = (book, shelf) => {
+    console.log("Before concat: ", this.state.books);
+    //here we loop through the books and compare the shelves, then update the bookshelf .
+    let books = this.state.books;
+    books.forEach((oldBook, index) => {
+      if (oldBook.id === book.id) {
+        books[index].shelf = shelf;
+      }
+    });
+    this.setState({ books }, console.log("After concat: ", this.state.books));
   };
 
   onDragEnd = result => {
-    // const {books} = this.state;
-    const { draggableId } = result;
-    const { droppableId } = result.destination;
+    const { source, destination, draggableId } = result;
+    console.log(result);
 
-    const books = reorder(
+    const books = dndHelpers.reorder(
       this.state.books,
-      result.source.index,
-      result.destination.index
+      source.index,
+      destination.index
     );
+    console.log("OnDragend reorder: ", books);
     //get the book object
     const book = books.find(b => b.id === draggableId);
     //update the book
-    // this.updateBook(book, droppableId);
-    // this.setState({
-    //   books
-    // });
-    this.updateBook(book, droppableId);
+    this.updateBookShelf(book, destination.droppableId);
+    this.updateBookState(book, destination.droppableId);
   };
 
   render() {
     //destructure the books object
     const { books, shelves } = this.state;
+    console.log("Render state: ", books);
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
+        {console.log("Render return: ", books)}
         <main className="container my-reads-container">
           <Route
             exact
