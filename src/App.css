@@ -46,6 +46,10 @@ body,
   text-align: center;
 }
 
+.bookshelf-highlight {
+  background-color: rgba(96, 172, 93, 0.31);
+}
+
 .open-search {
   position: fixed;
   right: 25px;

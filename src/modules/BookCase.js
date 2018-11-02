@@ -4,6 +4,9 @@ import ShelfList from "../components/ShelfList";
 import SearchButton from "../components/Search/SearchButton";
 import Search from "./Search";
 import { Route } from "react-router-dom";
+import HTML5Backend from "react-dnd-html5-backend";
+import { DragDropContext } from "react-dnd";
+import { toast } from "react-toastify";
 
 class BookCase extends Component {
   /**
@@ -52,11 +55,25 @@ class BookCase extends Component {
     return books.filter(book => book.shelf === query);
   };
 
+  /**
+   * Get books count by shelf
+   * @param shelfId
+   * @return {*}
+   */
   getBooksByShelfCount = shelfId => {
-    const { shelves } = this.state;
-    let shelf = shelves.find(shelf => shelf.id === shelfId);
+    let shelf = this.getShelf(shelfId);
     let count = this.getBooksByShelf(shelf.id).length;
     return count;
+  };
+  
+ /**
+  * Get shelf by shelf id
+  * @param shelfId
+  * @return {*}
+  */
+  getShelf = shelfId => {
+    const { shelves } = this.state;
+    return shelves.find(shelf => shelf.id === shelfId);
   };
 
   /**
@@ -70,6 +87,9 @@ class BookCase extends Component {
 
     //update book shelf
     this.updateBookShelf(book, shelfId);
+
+    //update book state
+    this.updateBookState(book, shelfId);
   };
 
   /**
@@ -80,25 +100,45 @@ class BookCase extends Component {
   updateBookShelf = (book, shelfId) => {
     //first we update the book via the api
     update(book, shelfId).then(() => {
-      // then we set the shelf for the updated book
-      book.shelf = shelfId;
-      // then we update state with the updated book
-      this.updateBookState(book);
+      //display the update notification
+      this.showUpdateNotification(shelfId);
     });
   };
 
   /**
    * Updates book state
    * @param book
+   * @param shelf
    */
-  updateBookState = book => {
-    this.setState(prevState => ({
-      books: prevState.books
-        // now we remove the old data from the updated book from the array
-        .filter(b => b.id !== book.id)
-        // and append the updated book to the books array
-        .concat(book)
-    }));
+  updateBookState = (book, shelf) => {
+    let books = this.state.books;
+    //here we loop through the books and compare the shelves, then update the bookshelf .
+    books.map((oldBook, index) => {
+      if (oldBook.id === book.id) {
+        books[index].shelf = shelf;
+      }
+    });
+    this.setState({ books });
+  };
+
+  /**
+   * Update notification
+   * @param shelfId
+   */
+  showUpdateNotification = shelfId => {
+    const shelf = this.getShelf(shelfId);
+    toast.success(
+      () => (
+        <span>
+          Book moved to <span className="alert-link">{shelf.name}</span>
+        </span>
+      ),
+      {
+        className: "alert alert-success",
+        progressClassName: "bg-success",
+        autoClose: 3000
+      }
+    );
   };
 
   render() {
@@ -140,5 +180,5 @@ class BookCase extends Component {
     );
   }
 }
-
-export default BookCase;
+// export default BookCase;
+export default DragDropContext(HTML5Backend)(BookCase);

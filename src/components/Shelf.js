@@ -2,6 +2,37 @@ import React from "react";
 import Book from "./Book";
 import PropTypes from "prop-types";
 import SelectShelf from "./SelectShelf";
+import { DropTarget } from "react-dnd";
+import { ItemTypes } from "../api/Helpers";
+
+/**
+ * Implements the drop target contract.
+ * @author http://react-dnd.github.io/react-dnd/
+ * @package react-dnd
+ */
+const itemTarget = {
+  drop(props, monitor) {
+    // Obtain the dragged item
+    const item = monitor.getItem();
+    //update the bookshelf
+    props.onUpdateBookShelf(item.book, props.shelf.id);
+  }
+};
+
+/**
+ * Specifies the props to inject into your component.
+ * @param connect
+ * @param monitor
+ * @return {{connectDropTarget: ConnectDropTarget, isOver: boolean}}
+ * @author http://react-dnd.github.io/react-dnd/
+ * @package react-dnd
+ */
+const collect = (connect, monitor) => {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+};
 
 const Shelf = props => {
   const {
@@ -9,11 +40,18 @@ const Shelf = props => {
     shelf,
     shelves,
     onUpdateBookShelf,
-    getBooksByShelfCount
+    getBooksByShelfCount,
+    connectDropTarget,
+    isOver
   } = props;
 
-  return (
-    <div className="bookshelf">
+  //Dynamic shelf css classes
+  let shelfClass = "bookshelf";
+  if (isOver) {
+    shelfClass = "bookshelf-highlight";
+  }
+  return connectDropTarget(
+    <div className={shelfClass}>
       <div className="bookshelf-title-container d-flex align-items-start">
         <h2 className="bookshelf-title">{shelf.name}</h2>
         <span className="badge badge-pill badge-success ml-2">
@@ -21,7 +59,7 @@ const Shelf = props => {
         </span>
       </div>
       <div className="bookshelf-books">
-        <ol className="books-grid">
+        <div className="books-grid">
           {books.map(book => (
             <Book
               book={book}
@@ -30,7 +68,7 @@ const Shelf = props => {
               onUpdateBookShelf={onUpdateBookShelf}
             />
           ))}
-        </ol>
+        </div>
       </div>
     </div>
   );
@@ -46,4 +84,4 @@ SelectShelf.propTypes = {
   onUpdateBookShelf: PropTypes.func.isRequired
 };
 
-export default Shelf;
+export default DropTarget(ItemTypes.BOOK, itemTarget, collect)(Shelf);
