@@ -57,6 +57,8 @@ class Search extends Component {
 
   /**
    * Sets the component's error state
+   * @param showError
+   * @param errorMessage
    */
   setSearchError = (showError, errorMessage) => {
     this.setState(() => ({

@@ -5,7 +5,7 @@ const SearchResults = props => {
   const { books, shelves, onUpdateBookShelf } = props;
   return (
     <div className="search-books-results">
-      <ol className="books-grid">
+      <div className="books-grid">
         {books.map(book => (
           <Book
             book={book}
@@ -14,7 +14,7 @@ const SearchResults = props => {
             onUpdateBookShelf={onUpdateBookShelf}
           />
         ))}
-      </ol>
+      </div>
     </div>
   );
 };
