@@ -1,9 +1,9 @@
 import React from "react";
-import Book from "./Book";
 import PropTypes from "prop-types";
 import SelectShelf from "./SelectShelf";
 import { DropTarget } from "react-dnd";
 import { ItemTypes } from "../api/Helpers";
+import BookList from "./BookList";
 
 /**
  * Implements the drop target contract.
@@ -61,11 +61,12 @@ const Shelf = props => {
       <div className="bookshelf-books">
         <div className="books-grid">
           {books.map(book => (
-            <Book
+            <BookList
               book={book}
               shelves={shelves}
               key={book.id}
               onUpdateBookShelf={onUpdateBookShelf}
+              draggable
             />
           ))}
         </div>

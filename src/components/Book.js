@@ -1,36 +1,6 @@
 import React, { Component } from "react";
 import SelectShelf from "./SelectShelf";
 import PropTypes from "prop-types";
-import { DragSource } from "react-dnd";
-import { ItemTypes } from "../api/Helpers";
-
-/**
- * Implements the drag source contract.
- * @author http://react-dnd.github.io/react-dnd/
- * @package react-dnd
- */
-const itemSource = {
-  beginDrag(props) {
-    return {
-      book: props.book
-    };
-  }
-};
-
-/**
- * Specifies the props to inject into your component.
- * @param connect
- * @param monitor
- * @return {{connectDragSource: ConnectDragSource, isDragging: boolean}}
- * @author http://react-dnd.github.io/react-dnd/
- * @package react-dnd
- */
-const collect = (connect, monitor) => {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  };
-};
 
 class Book extends Component {
   /**
@@ -44,11 +14,11 @@ class Book extends Component {
   };
 
   render() {
-    const { book, shelves, connectDragSource } = this.props;
+    console.log('bookComponent', this.props);
+    const { book, shelves } = this.props;
     const authors = book.authors ? book.authors.join(", ") : "Unknown";
 
-    return connectDragSource(
-      <div className="book-container">
+    return (
         <div className="book" style={{ cursor: "pointer" }}>
           <div className="book-top">
             <div
@@ -68,7 +38,6 @@ class Book extends Component {
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{authors}</div>
         </div>
-      </div>
     );
   }
 }
@@ -83,4 +52,4 @@ SelectShelf.propTypes = {
   onUpdateBookShelf: PropTypes.func.isRequired
 };
 
-export default DragSource(ItemTypes.BOOK, itemSource, collect)(Book);
+export default Book;
