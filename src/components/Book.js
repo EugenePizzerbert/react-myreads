@@ -14,7 +14,6 @@ class Book extends Component {
   };
 
   render() {
-    console.log('bookComponent', this.props);
     const { book, shelves } = this.props;
     const authors = book.authors ? book.authors.join(", ") : "Unknown";
 
