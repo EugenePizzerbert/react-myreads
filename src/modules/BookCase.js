@@ -65,12 +65,12 @@ class BookCase extends Component {
     let count = this.getBooksByShelf(shelf.id).length;
     return count;
   };
-  
- /**
-  * Get shelf by shelf id
-  * @param shelfId
-  * @return {*}
-  */
+
+  /**
+   * Get shelf by shelf id
+   * @param shelfId
+   * @return {*}
+   */
   getShelf = shelfId => {
     const { shelves } = this.state;
     return shelves.find(shelf => shelf.id === shelfId);
@@ -87,9 +87,6 @@ class BookCase extends Component {
 
     //update book shelf
     this.updateBookShelf(book, shelfId);
-
-    //update book state
-    this.updateBookState(book, shelfId);
   };
 
   /**
@@ -100,6 +97,10 @@ class BookCase extends Component {
   updateBookShelf = (book, shelfId) => {
     //first we update the book via the api
     update(book, shelfId).then(() => {
+      // then we set the shelf for the updated book to pass to the state
+      book.shelf = shelfId;
+      // then we update state with the updated book
+      this.updateBookState(book);
       //display the update notification
       this.showUpdateNotification(shelfId);
     });
@@ -110,15 +111,14 @@ class BookCase extends Component {
    * @param book
    * @param shelf
    */
-  updateBookState = (book, shelf) => {
-    let books = this.state.books;
-    //here we loop through the books and compare the shelves, then update the bookshelf .
-    books.map((oldBook, index) => {
-      if (oldBook.id === book.id) {
-        books[index].shelf = shelf;
-      }
-    });
-    this.setState({ books });
+  updateBookState = book => {
+    this.setState(prevState => ({
+      books: prevState.books
+        // now we remove the old data from the updated book from the array
+        .filter(b => b.id !== book.id)
+        // and append the updated book to the books array
+        .concat(book)
+    }));
   };
 
   /**
