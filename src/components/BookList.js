@@ -11,7 +11,7 @@ import { ItemTypes } from "../api/Helpers";
 const itemSource = {
   beginDrag(props) {
     return {
-      book: props.book.id
+      book: props.book
     };
   }
 };
