@@ -11,4 +11,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 library.add(fas, far, fab);
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Router>
+    <Route children={({ match, ...props }) => <App {...props} />} />
+  </Router>,
+  document.getElementById("root")
+);

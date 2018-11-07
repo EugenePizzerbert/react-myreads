@@ -3,8 +3,9 @@ import "./App.css";
 import BookCase from "./modules/BookCase";
 import Header from "./modules/Header";
 import Footer from "./modules/Footer";
-import { BrowserRouter as Router } from "react-router-dom";
 import { Slide, ToastContainer } from "react-toastify";
+import { Route } from "react-router-dom";
+import Landing from "./modules/Landing";
 
 class App extends Component {
   render() {
