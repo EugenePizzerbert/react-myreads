@@ -29,5 +29,6 @@
   },
   "jshintConfig": {
     "esversion": 6
-  }
+  },
+  "homepage" : "https://eddielee394.github.io/react-myreads/"
 }
