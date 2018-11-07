@@ -9,13 +9,14 @@ import Landing from "./modules/Landing";
 
 class App extends Component {
   render() {
+    const isLanding = this.props.location.pathname === "/";
     return (
       <div className="main-wrapper">
         <main className="main-container">
-          <Header />
+          <Header isLanding={isLanding} />
           <Route exact path="/" component={Landing} />
           <BookCase />
-          <Footer />
+          {/*<Footer />*/}
           <ToastContainer
             transition={Slide}
             newestOnTop={true}
