@@ -93,9 +93,6 @@ body,
 }
 
 .close-search {
-  background-image: url("./icons/arrow-back.svg");
-  background-position: center;
-  background-repeat: no-repeat;
   background-size: 28px;
 }
 

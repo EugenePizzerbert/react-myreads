@@ -185,9 +185,8 @@ class Search extends Component {
               <div className="input-group input-group-lg">
                 <div className="input-group-prepend close-search">
                   <Link
-                    to="/"
+                    to="bookcase"
                     className="btn btn-outline-success px-4"
-                    aria-label="Close"
                   >
                     <FontAwesomeIcon icon="arrow-left" />
                   </Link>

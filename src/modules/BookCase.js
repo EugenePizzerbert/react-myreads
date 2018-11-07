@@ -162,7 +162,7 @@ class BookCase extends Component {
         />
         <Route
           exact
-          path="/"
+          path="/bookcase"
           render={() => (
             <div className="container list-shelf-container  pl-lg-90 pt-80">
               <ShelfList
