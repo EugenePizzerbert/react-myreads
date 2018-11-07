@@ -8,6 +8,8 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/css/utilities/offsets.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 library.add(fas, far, fab);
 

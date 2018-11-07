@@ -13,6 +13,7 @@ class App extends Component {
       <div className="main-wrapper">
         <main className="main-container">
           <Header />
+          <Route exact path="/" component={Landing} />
           <BookCase />
           <Footer />
           <ToastContainer
