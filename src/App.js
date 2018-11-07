@@ -10,8 +10,8 @@ import Landing from "./modules/Landing";
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="main-page">
+      <div className="main-wrapper">
+        <main className="main-container">
           <Header />
           <BookCase />
           <Footer />
@@ -21,8 +21,8 @@ class App extends Component {
             // hideProgressBar={true}
             // autoClose={false}
           />
-        </div>
-      </Router>
+        </main>
+      </div>
     );
   }
 }
