@@ -146,12 +146,12 @@ class BookCase extends Component {
     const { books, shelves } = this.state;
 
     return (
-      <main className="container my-reads-container">
+      <React.Fragment>
         <Route
           exact
           path="/search"
           render={() => (
-            <div className="search-overlay-container">
+            <div className="container search-overlay-container  pl-lg-90 pt-80">
               <Search
                 books={books}
                 shelves={shelves}
@@ -164,7 +164,7 @@ class BookCase extends Component {
           exact
           path="/"
           render={() => (
-            <div className="list-shelf-container my-3">
+            <div className="container list-shelf-container  pl-lg-90 pt-80">
               <ShelfList
                 books={books}
                 shelves={shelves}
@@ -176,7 +176,7 @@ class BookCase extends Component {
             </div>
           )}
         />
-      </main>
+      </React.Fragment>
     );
   }
 }
