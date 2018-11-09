@@ -16,12 +16,12 @@ const Mobile = props => {
   }
   return (
     <div className="brk-header-mobile d-flex align-items-center d-lg-none mx-0">
-      <div className="col-1">
+      <div className="col-2 col-md-1">
         <Link to="/" className="nav-home-link">
           <FontAwesomeIcon icon="home" className="text-white font__size-28" />
         </Link>
       </div>
-      <div className="col-10">
+      <div className="col-8 col-md-10">
         <div className="brk-header-mobile__logo">
           <Link to="/">
             <img
@@ -37,7 +37,7 @@ const Mobile = props => {
           </Link>
         </div>
       </div>
-      <div className="col-1">
+      <div className="col-2 col-md-1">
         <Link to="search" className="nav-search-link">
           <FontAwesomeIcon icon="search" className="text-white font__size-28" />
         </Link>

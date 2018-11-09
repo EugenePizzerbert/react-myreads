@@ -6392,6 +6392,9 @@ body .main-icon + * {
 /*
 // Helpers
 // ================ */
+.maxw-90 {
+  max-width: 90%;
+}
 .maxw-300 {
   max-width: 300px;
   margin-left: auto;

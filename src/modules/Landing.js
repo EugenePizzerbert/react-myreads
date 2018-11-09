@@ -8,16 +8,14 @@ import imgBgTravelerReading from "../assets/img/bg_traveler_reading.jpg";
 const Landing = () => {
   return (
     <div
-      className="landing-container "
+      className="landing-container container-fluid pl-lg-90"
       style={{
         backgroundImage: `url(${imgBgTravelerReading})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center center",
         backgroundSize: "cover",
-        height: "100vh",
         position: "relative",
-        overflow: "hidden",
-        paddingLeft: "80px"
+        overflow: "hidden"
       }}
     >
       <div

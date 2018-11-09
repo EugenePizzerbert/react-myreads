@@ -171,3 +171,22 @@ body,
   text-align: center;
   font-size: 0.8em;
 }
+@media screen and (min-width: 768px) {
+  .landing-container {
+    height: 100vh;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1299px) {
+  .landing-container .iphone-image {
+    max-width: 90%;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 1300px) and (max-width: 1399px) {
+  .landing-container .iphone-image {
+    max-width: 70%;
+    height: auto;
+  }
+}
