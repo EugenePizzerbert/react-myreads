@@ -12743,10 +12743,15 @@ a.badge .badge-primary {
 }
 
 .all-light .btn-prime {
-  background: transparent;
+  background: rgba(114, 2, 187, 0.4);
   color: #fff;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.3);
 }
+
+.all-light .btn-prime:hover {
+  background: rgba(114, 2, 187, 0.7);
+}
+
 .all-light .btn-prime:hover [class*="fa-"].icon-left {
   color: #fff;
 }

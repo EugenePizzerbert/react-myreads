@@ -134,9 +134,9 @@ class BookCase extends Component {
         </span>
       ),
       {
-        className: "alert alert-success",
-        progressClassName: "bg-success",
-        autoClose: 3000
+        className: "alert alert-primary",
+        progressClassName: "bg-primary",
+        autoClose: 1500
       }
     );
   };
