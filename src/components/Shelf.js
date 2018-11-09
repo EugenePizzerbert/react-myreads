@@ -54,7 +54,7 @@ const Shelf = props => {
     <div className={shelfClass}>
       <div className="bookshelf-title-container d-flex align-items-start">
         <h2 className="bookshelf-title">{shelf.name}</h2>
-        <span className="badge badge-pill badge-success ml-2">
+        <span className="badge badge-pill badge-dark ml-2">
           {getBooksByShelfCount(shelf.id)}
         </span>
       </div>

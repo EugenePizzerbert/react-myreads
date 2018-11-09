@@ -29,40 +29,17 @@ const Vertical = props => {
                 />
               </Link>
             </div>
-            <div className="brk-search brk-header_border-bottom-20 brk-header__item">
-              <div className="brk-search__open">
-                <FontAwesomeIcon icon={["fas", "search"]} aria-hidden="true" />
-                <div className="brk-search__title">Search website</div>
-              </div>
-              <div className="brk-search__block">
-                <div className="brk-search__header">
-                  <span className="font__family-montserrat font__weight-bold font__size-18">
-                    Search
-                  </span>
-                </div>
-                <form className="brk-search__form">
-                  <input
-                    name="s"
-                    maxLength="50"
-                    type="search"
-                    placeholder="Enter search text"
-                  />
-                  <button type="submit">
-                    <FontAwesomeIcon icon={["fas", "search"]} />
-                  </button>
-                </form>
-                <span className="brk-search__close font__family-montserrat font__weight-medium">
-                  Close <FontAwesomeIcon icon={["fas", "times"]} />
-                </span>
-              </div>
-            </div>
+            
           </div>
           <div className="col-lg-auto">
             <div className="brk-header-popup-menu">
               <div className="brk-header-popup-menu__open-close font__family-montserrat font__weight-light font__size-14 letter-spacing-40">
-                <Link to="bookcase" className="menu-link text-white">
-                  <FontAwesomeIcon icon="bars" /> Book Shelves
-                </Link>
+                <a
+                  to="https://github.com/eddielee394/react-myreads"
+                  className="menu-link text-white"
+                >
+                  <FontAwesomeIcon icon="bars" /> Source Code
+                </a>
               </div>
               <div className="brk-header-popup-menu__menu text-lg-center font__family-roboto font__weight-thin">
                 <ul>

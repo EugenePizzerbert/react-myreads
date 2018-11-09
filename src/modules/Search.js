@@ -6,6 +6,7 @@ import { search } from "../api/BooksAPI";
 import SearchError from "../components/Search/Error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { debounce } from "throttle-debounce";
+import "../assets/css/components/form-controls.css";
 
 class Search extends Component {
   constructor() {
@@ -181,18 +182,15 @@ class Search extends Component {
       <div className="search-books-container search-books">
         <div className="row">
           <div className="col-12">
-            <div className="search-bar-container my-3">
-              <div className="input-group input-group-lg">
-                <div className="input-group-prepend close-search">
-                  <Link
-                    to="bookcase"
-                    className="btn btn-outline-success px-4"
-                  >
+            <div className="brk-form brk-form-transparent brk-library-rendered">
+              <div className="brk-form-wrap btn-backgrounds_left-icon btn-backgrounds btn-backgrounds_transparent">
+                <span className="before" style={{ left: "auto" }}>
+                  <Link to="bookcase" className="">
                     <FontAwesomeIcon icon="arrow-left" />
                   </Link>
-                </div>
+                </span>
                 <input
-                  className="form-control"
+                  className="brk-form-input-transparent text-dark pl-50"
                   type="text"
                   placeholder="Search by title or author"
                   value={query}
