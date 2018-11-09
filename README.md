@@ -1,7 +1,8 @@
 # React MyReads
 ![](docs/screenshots/myreads_landing.jpg)
-This is a customized book favoriting application built on ReactJS . 
-
+This is a customized book favoriting application built on ReactJS .
+ 
+*Demo:* [https://eddielee394.github.io/react-myreads](https://eddielee394.github.io/react-myreads) 
 
 # Todo
 - [x] Complete basic [rubric requirements](https://review.udacity.com/#!/rubrics/918/view)

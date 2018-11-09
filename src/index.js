@@ -14,7 +14,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 library.add(fas, far, fab);
 
 ReactDOM.render(
-  <Router>
+  <Router basename="/react-myreads">
     <Route children={({ match, ...props }) => <App {...props} />} />
   </Router>,
   document.getElementById("root")

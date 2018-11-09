@@ -29,13 +29,12 @@ const Vertical = props => {
                 />
               </Link>
             </div>
-            
           </div>
           <div className="col-lg-auto">
             <div className="brk-header-popup-menu">
               <div className="brk-header-popup-menu__open-close font__family-montserrat font__weight-light font__size-14 letter-spacing-40">
                 <a
-                  to="https://github.com/eddielee394/react-myreads"
+                  href="https://github.com/eddielee394/react-myreads"
                   className="menu-link text-white"
                 >
                   <FontAwesomeIcon icon="bars" /> Source Code
